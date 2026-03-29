@@ -1,0 +1,12 @@
+initiative: <slug>
+created: <date>
+phase: think
+
+services: []
+  # - repo: <repo-name>
+  #   repo_path: ../<repo-name>
+  #   branch: cortex/<slug>/<repo-name>
+  #   change_id: <openspec-change-id>
+  #   pr_url: null
+  #   status: not-started
+  #   notes: ""

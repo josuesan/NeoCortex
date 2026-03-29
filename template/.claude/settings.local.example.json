@@ -1,0 +1,12 @@
+{
+  "// instructions": "Copy this file to settings.local.json and customize as needed.",
+  "// permissions_note": "Add write permissions for repos you trust this workspace to modify.",
+  "permissions": {
+    "allow": [
+      "Bash(npm *)",
+      "Bash(docker *)",
+      "Write",
+      "Edit"
+    ]
+  }
+}

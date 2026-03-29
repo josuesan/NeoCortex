@@ -1,0 +1,30 @@
+# Default rollout configuration
+
+rollout:
+  phases:
+    - staging
+    - canary
+    - production
+
+  canary:
+    minimum_duration: 30m
+    traffic_percentage: 10
+
+  production:
+    approval_required: true
+
+rollback:
+  triggers:
+    - error_rate_spike
+    - latency_p99_increase
+    - failed_health_check
+  automatic: false
+
+monitoring:
+  required: true
+  minimum_observation_period: 15m
+  alerts:
+    - error_rate
+    - latency_p99
+    - cpu_usage
+    - memory_usage

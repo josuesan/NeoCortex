@@ -1,0 +1,28 @@
+# Service registry
+# Define all services in your platform, their local paths, and dependencies.
+# local_path is relative to this workspace root.
+
+services:
+  auth-service:
+    local_path: ../auth-service
+    owner: identity
+    role: backend-service
+    openspec_path: openspec
+    depends_on: []
+
+  billing-service:
+    local_path: ../billing-service
+    owner: payments
+    role: backend-service
+    openspec_path: openspec
+    depends_on:
+      - auth-service
+
+  web-client:
+    local_path: ../web-client
+    owner: frontend
+    role: frontend
+    openspec_path: openspec
+    depends_on:
+      - auth-service
+      - billing-service

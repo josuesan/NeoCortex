@@ -1,0 +1,28 @@
+initiative: policy-renewal-flow
+created: 2025-03-01
+phase: review
+
+services:
+  - repo: quoter
+    repo_path: ../quoter
+    branch: cortex/policy-renewal-flow/quoter
+    change_id: policy-renewal-flow-quoter
+    pr_url: https://github.com/acme/quoter/pull/87
+    status: done
+    notes: "Renewal quote generation complete, merged"
+
+  - repo: offer-builder
+    repo_path: ../offer-builder
+    branch: cortex/policy-renewal-flow/offer-builder
+    change_id: policy-renewal-flow-offer-builder
+    pr_url: https://github.com/acme/offer-builder/pull/45
+    status: done
+    notes: "Renewal offer creation complete, merged"
+
+  - repo: order-orchestrator
+    repo_path: ../order-orchestrator
+    branch: cortex/policy-renewal-flow/order-orchestrator
+    change_id: policy-renewal-flow-order-orchestrator
+    pr_url: https://github.com/acme/order-orchestrator/pull/203
+    status: in-review
+    notes: "Renewal processing logic, PR open awaiting review"

@@ -1,0 +1,28 @@
+initiative: add-checkout-flow
+created: 2025-03-15
+phase: build
+
+services:
+  - repo: auth-service
+    repo_path: ../auth-service
+    branch: cortex/add-checkout-flow/auth-service
+    change_id: add-checkout-flow-auth-service
+    pr_url: https://github.com/acme/auth-service/pull/142
+    status: done
+    notes: "Checkout session endpoint merged and tested"
+
+  - repo: billing-service
+    repo_path: ../billing-service
+    branch: cortex/add-checkout-flow/billing-service
+    change_id: add-checkout-flow-billing-service
+    pr_url: null
+    status: in-progress
+    notes: "Schema migration done, payment logic WIP"
+
+  - repo: web-client
+    repo_path: ../web-client
+    branch: null
+    change_id: add-checkout-flow-web-client
+    pr_url: null
+    status: not-started
+    notes: "Blocked on billing-service API being ready"

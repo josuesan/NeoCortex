@@ -1,0 +1,34 @@
+# Naming and state conventions
+
+naming:
+  initiative_slug: kebab-case
+  branch_pattern: "cortex/{initiative}/{repo}"
+  change_id_pattern: "{initiative}-{repo}"
+
+states:
+  valid:
+    - not-started
+    - in-progress
+    - in-review
+    - blocked
+    - done
+    - shipped
+
+phases:
+  - think
+  - plan
+  - build
+  - review
+  - qa
+  - security
+  - ship
+
+documentation:
+  update_policy: "Update initiative docs as part of each phase transition"
+  required_files:
+    - overview.md
+    - impact-matrix.md
+    - links.yaml
+    - rollout.md
+    - qa-checklist.md
+    - security-checklist.md
