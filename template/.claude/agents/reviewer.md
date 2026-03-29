@@ -1,5 +1,6 @@
 ---
 name: reviewer
+model: sonnet
 description: Reviews cross-repo compatibility, merge order, and integration risks
 tools:
   - Read

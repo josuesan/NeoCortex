@@ -1,5 +1,6 @@
 ---
 name: qa
+model: sonnet
 description: Validates functional correctness and completes the QA checklist for an initiative
 tools:
   - Read

@@ -1,5 +1,6 @@
 ---
 name: shipper
+model: haiku
 description: Coordinates merge, deploy, and rollout for a completed initiative
 tools:
   - Read

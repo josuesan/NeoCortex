@@ -1,5 +1,6 @@
 ---
 name: digest
+model: haiku
 description: Summarizes PRs, blockers, and risks across all repos in an initiative
 tools:
   - Read

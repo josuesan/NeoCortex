@@ -1,5 +1,6 @@
 ---
 name: security
+model: sonnet
 description: Reviews security risks, data exposure, and configuration safety for an initiative
 tools:
   - Read

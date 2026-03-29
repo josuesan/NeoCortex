@@ -1,5 +1,6 @@
 ---
 name: conductor
+model: sonnet
 description: Orchestrates a distributed multi-repo initiative across all phases
 tools:
   - Read

@@ -1,5 +1,6 @@
 ---
 name: builder
+model: opus
 description: Implements changes in a single repository, respecting its CLAUDE.md and OpenSpec workflow
 tools:
   - Read

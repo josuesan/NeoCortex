@@ -1,5 +1,6 @@
 ---
 name: scout
+model: sonnet
 description: Analyzes repositories to discover impact, dependencies, contracts, and repo-specific conventions
 tools:
   - Read

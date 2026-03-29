@@ -39,6 +39,21 @@ No servers. No dashboards. No daemons. Just Markdown, YAML, and Claude Code.
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
 - Your repos cloned as siblings in a directory (e.g., `~/Projects/`)
 - `gh` CLI installed (for PR operations)
+- (Recommended) [RTK](https://github.com/rtk-ai/rtk) installed — reduces token consumption by 60-90% on shell commands
+
+### Token Optimization with RTK
+
+NeoCortex agents make heavy use of git, test runners, and file operations. RTK compresses these outputs before they hit the context window:
+
+```bash
+# Install RTK
+brew install rtk
+
+# Enable globally for Claude Code (creates a PreToolUse hook)
+rtk init -g
+```
+
+This is optional but strongly recommended — especially for `/build` (test output) and `/ship` (git/gh operations).
 
 ### Setup
 
@@ -181,16 +196,18 @@ Review, QA, and Security can run in parallel. Ship is always last.
 
 8 subagents in `.claude/agents/`, each with a focused role:
 
-| Agent | Role | Touches code? |
-|-------|------|:---:|
-| **conductor** | Orchestrates the initiative, coordinates all agents | No |
-| **scout** | Analyzes repos — contracts, deps, migrations, impact | No |
-| **builder** | Implements changes in a single repo | Yes |
-| **reviewer** | Reviews cross-repo compatibility and merge order | No |
-| **qa** | Validates functional correctness, completes QA checklist | No |
-| **security** | Reviews security risks, completes security checklist | No |
-| **shipper** | Coordinates merge and deploy sequence | No |
-| **digest** | Summarizes PRs, blockers, risks, and readiness | No |
+| Agent | Role | Model | Touches code? |
+|-------|------|-------|:---:|
+| **conductor** | Orchestrates the initiative, coordinates all agents | sonnet | No |
+| **scout** | Analyzes repos — contracts, deps, migrations, impact | sonnet | No |
+| **builder** | Implements changes in a single repo | opus | Yes |
+| **reviewer** | Reviews cross-repo compatibility and merge order | sonnet | No |
+| **qa** | Validates functional correctness, completes QA checklist | sonnet | No |
+| **security** | Reviews security risks, completes security checklist | sonnet | No |
+| **shipper** | Coordinates merge and deploy sequence | haiku | No |
+| **digest** | Summarizes PRs, blockers, risks, and readiness | haiku | No |
+
+Only **builder** uses Opus (writes code). Analysis agents use Sonnet. Mechanical agents use Haiku.
 
 ---
 
