@@ -10,20 +10,23 @@ A single initiative — a new feature, a migration, a compliance change — touc
 
 ## How It Works
 
+Your repos stay where they are — as siblings in a directory. NeoCortex lives alongside them as the coordinator:
+
 ```
-                    NeoCortex Workspace
-                 (coordination + state)
-                          │
-            ┌─────────────┼─────────────┐
-            ▼             ▼             ▼
-       auth-service  billing-svc   web-client
-       (OpenSpec)    (OpenSpec)    (OpenSpec)
+~/Projects/                     ← your projects directory
+├── neocortex-workspace/        ← NeoCortex coordinator (installed here)
+│   ├── config/services.yaml    ← points to sibling repos
+│   ├── initiatives/            ← initiative state lives here
+│   └── .claude/                ← agents, commands, skills
+├── auth-service/               ← your repo (untouched)
+├── billing-service/            ← your repo (untouched)
+└── web-client/                 ← your repo (untouched)
 ```
 
-- **Each repo keeps its own specs** (OpenSpec or whatever you use)
-- **NeoCortex tracks the initiative** — impact, dependencies, branches, PRs, rollout, readiness
-- **Claude Code does the work** — 8 subagents handle discovery, implementation, review, QA, security, and shipping
-- **You drive with commands** — `/cortex`, `/status`, `/sync`, etc.
+- **Repos are NOT cloned inside NeoCortex.** They stay where they are. `services.yaml` references them with relative paths (`../auth-service`).
+- **`start-workspace.sh` connects everything** by launching Claude Code with `--add-dir` for each repo.
+- **Claude Code does the work** — 8 subagents handle discovery, implementation, review, QA, security, and shipping.
+- **You drive with commands** — `/cortex`, `/new-initiative`, `/status`, `/sync`, etc.
 
 No servers. No dashboards. No daemons. Just Markdown, YAML, and Claude Code.
 
@@ -78,20 +81,25 @@ services:
 ./scripts/start-workspace.sh
 ```
 
-Then inside Claude Code:
+Then inside Claude Code — just describe what you want to do:
 
 ```
-# Create the initiative
-/new-initiative add-checkout-flow
-
-# Edit the overview — describe what you're building and why
-# (Claude will help you fill it out)
-
-# Start coordinating
-/cortex add-checkout-flow
+/new-initiative add-checkout-flow add credit card and debit checkout support
 ```
 
-That's it. NeoCortex detects the current phase and drives the work forward.
+NeoCortex will:
+1. Read your repos to understand your platform
+2. Identify which services are affected and why
+3. Write a proper `overview.md` with objective, scope, and real risks
+4. Populate the `impact-matrix.md` with affected repos and dependencies
+5. Set up `links.yaml`, checklists, and rollout plan — all with real content, not templates
+
+Then coordinate the work:
+
+```
+/cortex add-checkout-flow    # drives the current phase forward
+/status add-checkout-flow    # check progress anytime
+```
 
 ---
 
@@ -101,7 +109,7 @@ All commands run inside Claude Code:
 
 | Command | What it does |
 |---------|-------------|
-| `/new-initiative <slug>` | Scaffold a new initiative from template |
+| `/new-initiative <slug> <description>` | Analyze repos and create a fully populated initiative |
 | `/cortex <slug>` | Coordinate the initiative through its current phase |
 | `/status <slug>` | Show initiative summary — per-repo status, checklists, blockers |
 | `/validate <slug>` | Check initiative files for consistency and valid states |
@@ -110,13 +118,14 @@ All commands run inside Claude Code:
 ### Typical session
 
 ```
-/new-initiative migrate-auth-v2        # scaffold
-# fill overview.md with objective/scope
-/cortex migrate-auth-v2       # → Plan phase: scout maps impact
-/cortex migrate-auth-v2       # → Build phase: builder implements per repo
-/status migrate-auth-v2                # check progress
-/cortex migrate-auth-v2       # → Review/QA/Security phases
-/cortex migrate-auth-v2       # → Ship phase: merge + deploy in order
+/new-initiative migrate-auth-v2 replace legacy auth middleware with OAuth2 tokens
+# → analyzes repos, writes overview, maps impact, creates checklists
+
+/cortex migrate-auth-v2       # → Plan: scout deepens the analysis
+/cortex migrate-auth-v2       # → Build: builder implements per repo
+/status migrate-auth-v2       # check progress anytime
+/cortex migrate-auth-v2       # → Review/QA/Security (can run in parallel)
+/cortex migrate-auth-v2       # → Ship: merge + deploy in order
 ```
 
 ---
@@ -133,7 +142,7 @@ Think → Plan → Build → Review ─┐
 
 | # | Phase | What happens | Agent |
 |---|-------|-------------|-------|
-| 1 | **Think** | Define the initiative — objective, scope, risks | You |
+| 1 | **Think** | Define the initiative — objective, scope, risks | `/new-initiative` |
 | 2 | **Plan** | Map impact across repos, identify parallel slices | scout |
 | 3 | **Build** | Implement changes repo-locally, create branches + PRs | builder |
 | 4 | **Review** | Cross-repo integration review, merge/deploy order | reviewer |

@@ -25,8 +25,8 @@ Coordinate a distributed initiative across multiple repositories.
 
 Assess the current phase based on initiative state:
 
-- **Think**: overview.md is empty or just created → help define the initiative
-- **Plan**: overview.md is filled but impact-matrix.md is empty → run discovery
+- **Think**: overview.md is empty or just created → suggest running `/new-initiative` first
+- **Plan**: overview.md is filled but impact-matrix has all repos `not-started` → run deeper discovery with scout
 - **Build**: impact-matrix has repos but some are `not-started` or `in-progress` → implement
 - **Review**: all repos are `in-review` or beyond → run integration review
 - **QA**: review is complete → run QA validation
@@ -36,16 +36,16 @@ Assess the current phase based on initiative state:
 ### 3. Execute Phase
 
 #### Think
-- Help the user define the initiative in overview.md
-- Clarify scope, non-goals, and risks
-- No agents needed — this is a conversation
+- If overview.md is empty, tell the user to run `/new-initiative <slug> <description>` first
+- `/new-initiative` handles the Think phase: it analyzes repos, writes overview, populates impact matrix and all files
 
 #### Plan
-- Spawn **scout** to analyze affected repos
-- Build the impact-matrix.md with repos, impact types, dependencies
-- Identify which repos can be worked in parallel
-- Propose implementation order
-- Update links.yaml with initial service entries
+- `/new-initiative` already did initial discovery — Plan goes deeper
+- Spawn **scout** to do thorough cross-repo analysis on the affected services
+- Validate and refine the impact-matrix.md (types, dependencies, parallelization)
+- Deep-check contracts, schemas, and integration points between affected repos
+- Refine implementation order based on detailed findings
+- Update links.yaml and impact-matrix.md with any new discoveries
 
 #### Build
 - For each repo that is `not-started` or `in-progress`:

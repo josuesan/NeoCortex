@@ -50,8 +50,7 @@ cd ~/Projects/my-conductor
 ./scripts/start-workspace.sh
 
 # 4. Inside Claude Code, create and coordinate
-/new-initiative my-first-initiative
-# Edit initiatives/my-first-initiative/overview.md
+/new-initiative my-first-initiative migrate user auth from sessions to JWT tokens
 /cortex my-first-initiative
 ```
 

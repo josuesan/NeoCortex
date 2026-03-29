@@ -16,7 +16,7 @@ Active initiatives live in `initiatives/<slug>/`. Each contains:
 - `qa-checklist.md` — functional validation
 - `security-checklist.md` — security review
 
-Create a new initiative: `/new-initiative <slug>`
+Create a new initiative: `/new-initiative <slug> <description of what you want to achieve>`
 
 ## Commands
 

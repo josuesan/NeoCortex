@@ -14,14 +14,21 @@ Think → Plan → Build → Review ─┐
 
 **Goal:** Understand the problem and define the initiative.
 
-**Who:** You (the human).
+**Command:** `/new-initiative <slug> <description>`
 
-**Actions:**
-1. Create the initiative: `/new-initiative <slug>`
-2. Fill in `overview.md` — objective, scope, non-goals, risks
-3. Don't worry about impact or implementation yet
+**What happens:**
+1. You describe what you want to achieve in natural language
+2. NeoCortex reads `services.yaml` and scans your repos
+3. Identifies affected services, dependencies, and risks
+4. Creates all 6 initiative files with real, specific content:
+   - `overview.md` — proper objective, scope, risks from codebase analysis
+   - `impact-matrix.md` — affected repos with impact types and dependencies
+   - `links.yaml` — service entries with branch names
+   - `rollout.md` — deploy order based on dependency graph
+   - `qa-checklist.md` — initiative-specific functional checks
+   - `security-checklist.md` — initiative-specific security checks
 
-**Output:** A clear overview.md that anyone can read and understand.
+**Output:** A fully populated initiative ready for the Plan phase.
 
 ## Phase 2: Plan
 
