@@ -20,11 +20,19 @@ Create a new initiative: `/new-initiative <slug> <description of what you want t
 
 ## Commands
 
-- `/new-initiative <slug>` — scaffold a new initiative
+### Phase commands (run in order)
+- `/new-initiative <slug> <description>` — Think: analyze repos, create initiative with real content
+- `/plan <slug>` — Plan: deep analysis via scout, refine impact matrix
+- `/build <slug>` — Build: conductor spawns builders per repo (parallelized)
+- `/review <slug>` — Review: cross-repo integration review
+- `/qa <slug>` — QA: functional validation checklist (can run parallel with /security)
+- `/security <slug>` — Security: security review checklist (can run parallel with /qa)
+- `/ship <slug>` — Ship: merge PRs in order, coordinate deploy
+
+### Utility commands
+- `/status <slug>` — show initiative summary and current phase
 - `/validate <slug>` — check initiative file consistency
 - `/sync <slug>` — validate branches/PRs match links.yaml
-- `/status <slug>` — render initiative summary
-- `/cortex <slug>` — coordinate through all phases
 
 ## Agents
 

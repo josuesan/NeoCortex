@@ -26,7 +26,7 @@ Your repos stay where they are — as siblings in a directory. NeoCortex lives a
 - **Repos are NOT cloned inside NeoCortex.** They stay where they are. `services.yaml` references them with relative paths (`../auth-service`).
 - **`start-workspace.sh` connects everything** by launching Claude Code with `--add-dir` for each repo.
 - **Claude Code does the work** — 8 subagents handle discovery, implementation, review, QA, security, and shipping.
-- **You drive with commands** — `/cortex`, `/new-initiative`, `/status`, `/sync`, etc.
+- **You drive with explicit phase commands** — `/new-initiative`, `/plan`, `/build`, `/review`, `/qa`, `/security`, `/ship`
 
 No servers. No dashboards. No daemons. Just Markdown, YAML, and Claude Code.
 
@@ -94,10 +94,15 @@ NeoCortex will:
 4. Populate the `impact-matrix.md` with affected repos and dependencies
 5. Set up `links.yaml`, checklists, and rollout plan — all with real content, not templates
 
-Then coordinate the work:
+Then drive each phase explicitly:
 
 ```
-/cortex add-checkout-flow    # drives the current phase forward
+/plan add-checkout-flow      # deep analysis of affected repos
+/build add-checkout-flow     # implement in each repo (parallelized)
+/review add-checkout-flow    # cross-repo integration review
+/qa add-checkout-flow        # functional validation
+/security add-checkout-flow  # security review
+/ship add-checkout-flow      # merge + deploy in order
 /status add-checkout-flow    # check progress anytime
 ```
 
@@ -107,11 +112,23 @@ Then coordinate the work:
 
 All commands run inside Claude Code:
 
+### Phase commands
+
+| Command | Phase | What it does |
+|---------|-------|-------------|
+| `/new-initiative <slug> <desc>` | Think | Analyze repos, create initiative with real content |
+| `/plan <slug>` | Plan | Deep repo analysis via scout, refine impact matrix |
+| `/build <slug>` | Build | Conductor parallelizes builders across repos |
+| `/review <slug>` | Review | Cross-repo integration review |
+| `/qa <slug>` | QA | Functional validation checklist |
+| `/security <slug>` | Security | Security review checklist |
+| `/ship <slug>` | Ship | Merge PRs in order, coordinate deploy |
+
+### Utility commands
+
 | Command | What it does |
 |---------|-------------|
-| `/new-initiative <slug> <description>` | Analyze repos and create a fully populated initiative |
-| `/cortex <slug>` | Coordinate the initiative through its current phase |
-| `/status <slug>` | Show initiative summary — per-repo status, checklists, blockers |
+| `/status <slug>` | Show initiative summary — phase, per-repo status, blockers |
 | `/validate <slug>` | Check initiative files for consistency and valid states |
 | `/sync <slug>` | Verify branches and PRs match what links.yaml says |
 
@@ -121,11 +138,15 @@ All commands run inside Claude Code:
 /new-initiative migrate-auth-v2 replace legacy auth middleware with OAuth2 tokens
 # → analyzes repos, writes overview, maps impact, creates checklists
 
-/cortex migrate-auth-v2       # → Plan: scout deepens the analysis
-/cortex migrate-auth-v2       # → Build: builder implements per repo
-/status migrate-auth-v2       # check progress anytime
-/cortex migrate-auth-v2       # → Review/QA/Security (can run in parallel)
-/cortex migrate-auth-v2       # → Ship: merge + deploy in order
+/plan migrate-auth-v2         # scout does deep analysis
+/build migrate-auth-v2        # conductor parallelizes builders per repo
+/status migrate-auth-v2       # check progress
+
+/review migrate-auth-v2       # cross-repo compatibility review
+/qa migrate-auth-v2           # ← these two can run
+/security migrate-auth-v2     # ← in parallel
+
+/ship migrate-auth-v2         # merge + deploy in order
 ```
 
 ---
@@ -142,13 +163,15 @@ Think → Plan → Build → Review ─┐
 
 | # | Phase | What happens | Agent |
 |---|-------|-------------|-------|
-| 1 | **Think** | Define the initiative — objective, scope, risks | `/new-initiative` |
-| 2 | **Plan** | Map impact across repos, identify parallel slices | scout |
-| 3 | **Build** | Implement changes repo-locally, create branches + PRs | builder |
-| 4 | **Review** | Cross-repo integration review, merge/deploy order | reviewer |
-| 5 | **QA** | Functional validation, E2E scenarios, test coverage | qa |
-| 6 | **Security** | Data exposure, auth, secrets, trust boundaries | security |
-| 7 | **Ship** | Merge in order, deploy, monitor, rollback plan | shipper |
+| # | Phase | Command | Agent |
+|---|-------|---------|-------|
+| 1 | **Think** | `/new-initiative` | (main session) |
+| 2 | **Plan** | `/plan` | scout |
+| 3 | **Build** | `/build` | conductor → builder(s) |
+| 4 | **Review** | `/review` | reviewer |
+| 5 | **QA** | `/qa` | qa |
+| 6 | **Security** | `/security` | security |
+| 7 | **Ship** | `/ship` | shipper + digest |
 
 Review, QA, and Security can run in parallel. Ship is always last.
 
@@ -213,14 +236,17 @@ your-workspace/
     │   ├── security.md                  # Security review
     │   ├── shipper.md                   # Ship coordination
     │   └── digest.md                    # Status synthesis
-    ├── commands/
-    │   ├── new-initiative.md            # /new-initiative
-    │   ├── validate.md                  # /validate
-    │   ├── sync.md                      # /sync
-    │   └── status.md                    # /status
-    └── skills/
-        └── cortex/
-            └── SKILL.md                 # /cortex
+    └── commands/
+        ├── new-initiative.md            # /new-initiative (Think)
+        ├── plan.md                      # /plan
+        ├── build.md                     # /build
+        ├── review.md                    # /review
+        ├── qa.md                        # /qa
+        ├── security.md                  # /security
+        ├── ship.md                      # /ship
+        ├── status.md                    # /status
+        ├── validate.md                  # /validate
+        └── sync.md                      # /sync
 ```
 
 ---
@@ -258,7 +284,7 @@ See [docs/config.md](docs/config.md) for full schema and examples.
 | [Workflow](docs/workflow.md) | End-to-end flow through all 7 phases |
 | [Conventions](docs/conventions.md) | Naming, states, branches, impact types |
 | [Agents](docs/agents.md) | All 8 agents — role, inputs, outputs, guidelines |
-| [Skills](docs/skills.md) | The `/cortex` skill in detail |
+| [Commands](docs/commands.md) | All phase and utility commands |
 | [Config](docs/config.md) | services.yaml, conventions.yaml, rollout-defaults.yaml |
 | [Migration Guide](docs/migration-guide.md) | Adopting NeoCortex in existing teams |
 

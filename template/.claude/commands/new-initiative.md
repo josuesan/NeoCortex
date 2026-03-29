@@ -18,7 +18,7 @@ If only a slug is provided without a description, ask the user what the initiati
 
 - Extract the slug (first word) and description (rest of the arguments).
 - Validate the slug is kebab-case (`^[a-z0-9]+(-[a-z0-9]+)*$`). If not, suggest a valid slug derived from their input.
-- Check if `initiatives/$SLUG/` already exists. If it does, report it and ask if they want to continue with `/cortex` instead.
+- Check if `initiatives/$SLUG/` already exists. If it does, report it and ask if they want to continue with `/plan` or `/build` instead.
 
 ### 2. Understand the platform
 
@@ -86,7 +86,7 @@ Show the user:
 - The list of affected repos with impact type
 - The proposed implementation order
 - Any risks or concerns worth discussing before proceeding
-- The next step: `/cortex $SLUG` to start the Plan phase (where scout will do a deeper analysis)
+- The next step: `/plan $SLUG` to run deep analysis (where scout will do a thorough cross-repo review)
 
 ### Important guidelines
 

@@ -15,7 +15,7 @@ set -euo pipefail
 #
 # Example:
 #   ./scripts/start-workspace.sh                      # start session
-#   ./scripts/start-workspace.sh add-checkout-flow     # start + run /cortex
+#   ./scripts/start-workspace.sh                        # start session
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -56,7 +56,7 @@ done
 # If an initiative slug is provided, set it as the initial prompt
 SLUG="${1:-}"
 if [[ -n "$SLUG" ]]; then
-  CMD+=" --prompt '/cortex $SLUG'"
+  CMD+=" --prompt '/status $SLUG'"
 fi
 
 echo "╔══════════════════════════════════════════╗"

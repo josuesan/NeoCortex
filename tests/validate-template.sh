@@ -28,10 +28,7 @@ for agent in "${AGENTS[@]}"; do
   [[ -f "$TEMPLATE/.claude/agents/$agent.md" ]] && pass "$agent.md" || fail "$agent.md missing"
 done
 
-# Skill
-echo ""
-echo "Skills:"
-[[ -f "$TEMPLATE/.claude/skills/cortex/SKILL.md" ]] && pass "cortex/SKILL.md" || fail "cortex/SKILL.md missing"
+# No skills directory — all commands now
 
 # Config
 echo ""
@@ -57,7 +54,7 @@ done
 # Commands
 echo ""
 echo "Commands:"
-for f in new-initiative.md validate.md sync.md status.md; do
+for f in new-initiative.md plan.md build.md review.md qa.md security.md ship.md status.md validate.md sync.md; do
   [[ -f "$TEMPLATE/.claude/commands/$f" ]] && pass "$f" || fail "$f missing"
 done
 

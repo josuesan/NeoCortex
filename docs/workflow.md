@@ -37,7 +37,7 @@ Think → Plan → Build → Review ─┐
 **Key agent:** scout
 
 **Actions:**
-1. Run `/cortex <slug>` — it detects the Plan phase
+1. Run `/plan <slug>`
 2. scout analyzes all repos for impact, including:
    - Each repo's CLAUDE.md (conventions the builder must follow)
    - Whether each repo uses OpenSpec (and its format)

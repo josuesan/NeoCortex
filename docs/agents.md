@@ -6,7 +6,7 @@ NeoCortex includes 8 specialized Claude Code subagents. Each is defined in `temp
 
 **Role:** Initiative conductor.
 
-**When:** Invoked by `/cortex` to orchestrate the full lifecycle.
+**When:** Invoked by `/build` to orchestrate the Build phase.
 
 **Reads:** overview.md, impact-matrix.md, links.yaml, rollout.md, services.yaml, each repo's CLAUDE.md
 **Writes:** impact-matrix.md, links.yaml

@@ -10,7 +10,7 @@ You already have `.claude/` in your repos. NeoCortex adds a coordinator workspac
 1. Create a new directory for your coordinator workspace
 2. Run `./install.sh /path/to/workspace`
 3. Edit `config/services.yaml` to list your repos
-4. Start using `/cortex` for cross-repo work
+4. Start using `/new-initiative` and phase commands for cross-repo work
 
 **What changes:** You now start multi-repo work from the coordinator, not from individual repos.
 **What stays the same:** Everything inside each repo. Their `.claude/`, their agents, their workflows.
@@ -34,7 +34,7 @@ This is the ideal starting point. You already have the pieces.
 **Steps:**
 1. Create coordinator workspace
 2. Configure services.yaml
-3. Start your next initiative with `/cortex`
+3. Start your next initiative with `/new-initiative`
 
 ## Step-by-Step First Initiative
 
@@ -51,7 +51,8 @@ cd ~/Projects/my-conductor
 
 # 4. Inside Claude Code, create and coordinate
 /new-initiative my-first-initiative migrate user auth from sessions to JWT tokens
-/cortex my-first-initiative
+/plan my-first-initiative
+/build my-first-initiative
 ```
 
 ## What Changes in Daily Workflow

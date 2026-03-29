@@ -14,7 +14,7 @@ echo "Linting documentation"
 echo ""
 
 # Check required docs
-DOCS=(architecture.md workflow.md conventions.md agents.md skills.md config.md migration-guide.md)
+DOCS=(architecture.md workflow.md conventions.md agents.md commands.md config.md migration-guide.md)
 echo "Required docs:"
 for doc in "${DOCS[@]}"; do
   if [[ -f "$ROOT_DIR/docs/$doc" ]]; then
