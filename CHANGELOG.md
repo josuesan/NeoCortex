@@ -6,7 +6,7 @@
 
 - Initial framework structure
 - 8 subagent definitions (conductor, scout, builder, reviewer, qa, security, shipper, digest)
-- `/platform-change` skill for initiative coordination
+- `/cortex` skill for initiative coordination
 - Initiative template files (overview, impact-matrix, links, rollout, QA checklist, security checklist)
 - Configuration system (services.yaml, conventions.yaml, rollout-defaults.yaml)
 - Claude Code commands (`/new-initiative`, `/validate`, `/sync`, `/status`)

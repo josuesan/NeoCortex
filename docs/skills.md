@@ -1,13 +1,13 @@
 # Skills
 
-## /platform-change
+## /cortex
 
 The primary skill for coordinating distributed initiatives.
 
 ### Usage
 
 ```
-/platform-change <slug>
+/cortex <slug>
 ```
 
 ### What It Does
@@ -49,7 +49,7 @@ The skill auto-detects the current phase based on initiative state:
 ### Example Session
 
 ```
-> /platform-change add-checkout-flow
+> /cortex add-checkout-flow
 
 Loading initiative: add-checkout-flow
 Phase detected: Plan
@@ -62,9 +62,9 @@ Running scout across 3 repos...
 Impact matrix updated.
 Parallel slices: [auth-service, web-client] → then billing-service
 
-Next: ready for Build phase. Run /platform-change add-checkout-flow to proceed.
+Next: ready for Build phase. Run /cortex add-checkout-flow to proceed.
 ```
 
 ### Location
 
-`template/.claude/skills/platform-change/SKILL.md`
+`template/.claude/skills/cortex/SKILL.md`

@@ -39,7 +39,7 @@ done
 # If an initiative slug is provided, set it as the initial prompt
 SLUG="${1:-}"
 if [[ -n "$SLUG" ]]; then
-  CMD+=" --prompt '/platform-change $SLUG'"
+  CMD+=" --prompt '/cortex $SLUG'"
 fi
 
 echo "Starting NeoCortex workspace with ${#DIRS[@]} services:"

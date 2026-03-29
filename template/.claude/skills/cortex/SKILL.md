@@ -1,5 +1,5 @@
 ---
-name: platform-change
+name: cortex
 description: Coordinate a distributed multi-repo initiative through all phases
 arguments:
   - name: slug
@@ -7,7 +7,7 @@ arguments:
     required: true
 ---
 
-# /platform-change
+# /cortex
 
 Coordinate a distributed initiative across multiple repositories.
 

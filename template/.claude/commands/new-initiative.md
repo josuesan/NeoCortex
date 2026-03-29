@@ -33,5 +33,5 @@ Create a new initiative from the template.
 
    Next steps:
      1. Edit initiatives/<slug>/overview.md — define objective, scope, and risks
-     2. Run /platform-change <slug> to start coordination
+     2. Run /cortex <slug> to start coordination
    ```

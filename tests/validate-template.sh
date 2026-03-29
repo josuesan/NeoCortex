@@ -31,7 +31,7 @@ done
 # Skill
 echo ""
 echo "Skills:"
-[[ -f "$TEMPLATE/.claude/skills/platform-change/SKILL.md" ]] && pass "platform-change/SKILL.md" || fail "platform-change/SKILL.md missing"
+[[ -f "$TEMPLATE/.claude/skills/cortex/SKILL.md" ]] && pass "cortex/SKILL.md" || fail "cortex/SKILL.md missing"
 
 # Config
 echo ""

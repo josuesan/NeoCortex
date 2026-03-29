@@ -24,7 +24,7 @@ Create a new initiative: `/new-initiative <slug>`
 - `/validate <slug>` — check initiative file consistency
 - `/sync <slug>` — validate branches/PRs match links.yaml
 - `/status <slug>` — render initiative summary
-- `/platform-change <slug>` — coordinate through all phases
+- `/cortex <slug>` — coordinate through all phases
 
 ## Agents
 

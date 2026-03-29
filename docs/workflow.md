@@ -30,7 +30,7 @@ Think → Plan → Build → Review ─┐
 **Key agent:** scout
 
 **Actions:**
-1. Run `/platform-change <slug>` — it detects the Plan phase
+1. Run `/cortex <slug>` — it detects the Plan phase
 2. scout analyzes all repos for impact
 3. Populates `impact-matrix.md` with affected repos, types, dependencies
 4. Identifies which repos can be worked in parallel
