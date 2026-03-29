@@ -50,8 +50,17 @@ Assess the current phase based on initiative state:
 #### Build
 - For each repo that is `not-started` or `in-progress`:
   - Check if it has unmet dependencies (another repo must be done first)
-  - If parallelizable, spawn **builder** agents concurrently
-  - If sequential, spawn them one at a time in dependency order
+  - Read the repo's CLAUDE.md to understand its conventions
+  - Check if the repo uses OpenSpec (from services.yaml `openspec_path`)
+  - Spawn **builder** with context: repo path, CLAUDE.md conventions, OpenSpec status
+  - Builder will:
+    1. Read and follow the repo's CLAUDE.md rules
+    2. Create an OpenSpec change spec (if repo uses OpenSpec)
+    3. Implement the changes following repo conventions
+    4. Run repo tests
+    5. Archive/update OpenSpec status when done
+  - If parallelizable, spawn builders concurrently
+  - If sequential, spawn them in dependency order
 - After each repo completes, update impact-matrix.md and links.yaml
 
 #### Review

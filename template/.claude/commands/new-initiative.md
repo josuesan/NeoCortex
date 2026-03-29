@@ -22,11 +22,13 @@ If only a slug is provided without a description, ask the user what the initiati
 
 ### 2. Understand the platform
 
-- Read `config/services.yaml` to understand all available services, their roles, owners, and dependency graph.
-- For each service listed, briefly scan its codebase to understand:
+- Read `config/services.yaml` to understand all available services, their roles, owners, dependency graph, and `openspec_path`.
+- For each service listed, scan its codebase to understand:
   - What it does (API routes, main modules, domain)
   - Its contracts (API schemas, message formats, shared types)
   - Its current state (recent changes, open branches)
+  - **Its CLAUDE.md** — read it to understand repo-specific conventions (commit format, code style, restrictions)
+  - **Its OpenSpec status** — check if `openspec/` (or the configured `openspec_path`) exists. If yes, note the format and any existing specs
 
 ### 3. Analyze impact
 

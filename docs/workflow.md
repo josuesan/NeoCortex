@@ -38,7 +38,10 @@ Think → Plan → Build → Review ─┐
 
 **Actions:**
 1. Run `/cortex <slug>` — it detects the Plan phase
-2. scout analyzes all repos for impact
+2. scout analyzes all repos for impact, including:
+   - Each repo's CLAUDE.md (conventions the builder must follow)
+   - Whether each repo uses OpenSpec (and its format)
+   - Contracts, schemas, dependencies between repos
 3. Populates `impact-matrix.md` with affected repos, types, dependencies
 4. Identifies which repos can be worked in parallel
 5. Proposes implementation order
@@ -53,17 +56,20 @@ Think → Plan → Build → Review ─┐
 **Key agent:** builder
 
 **Actions:**
-1. conductor reads impact-matrix.md
+1. conductor reads impact-matrix.md and each repo's CLAUDE.md
 2. Identifies parallelizable repos (no unmet dependencies)
-3. Spawns builder for each (parallel where safe)
-4. Each implementer:
+3. Spawns builder for each, passing repo-specific context
+4. Each builder per repo:
+   - Reads the repo's CLAUDE.md and follows its rules
+   - Checks if the repo uses OpenSpec
+   - If OpenSpec: creates change spec → implements → archives
+   - If no OpenSpec: implements directly from initiative overview
    - Creates branch `cortex/<slug>/<repo>`
-   - Implements changes aligned with repo's OpenSpec
-   - Runs tests
+   - Runs repo tests
    - Creates PR
 5. impact-matrix.md and links.yaml updated after each repo completes
 
-**Output:** All repos have branches, implementations, and PRs.
+**Output:** All repos have branches, implementations, PRs, and OpenSpec changes (where applicable).
 
 ## Phase 4: Review
 

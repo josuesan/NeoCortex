@@ -8,11 +8,13 @@ NeoCortex includes 8 specialized Claude Code subagents. Each is defined in `temp
 
 **When:** Invoked by `/cortex` to orchestrate the full lifecycle.
 
-**Reads:** overview.md, impact-matrix.md, links.yaml, rollout.md, services.yaml
+**Reads:** overview.md, impact-matrix.md, links.yaml, rollout.md, services.yaml, each repo's CLAUDE.md
 **Writes:** impact-matrix.md, links.yaml
 
 **Key behaviors:**
 - Never implements code directly — always delegates
+- Reads each repo's CLAUDE.md before assigning work to the builder
+- Passes repo-specific context (conventions, OpenSpec status) to the builder
 - Respects service dependency graph
 - Decides what can be parallelized
 - Coordinates phase transitions
@@ -30,6 +32,8 @@ NeoCortex includes 8 specialized Claude Code subagents. Each is defined in `temp
 
 **Key behaviors:**
 - Inspects API contracts, interfaces, shared types
+- Reads each repo's CLAUDE.md and reports conventions to the conductor
+- Detects whether each repo uses OpenSpec and what format
 - Detects migrations, feature flags, compatibility concerns
 - Proposes implementation order
 - Does NOT modify any code
@@ -38,18 +42,19 @@ NeoCortex includes 8 specialized Claude Code subagents. Each is defined in `temp
 
 ## builder
 
-**Role:** Single-repo executor.
+**Role:** Single-repo executor. Respects each repo's own rules.
 
 **When:** Build phase — implementing changes in one repository.
 
-**Reads:** impact-matrix.md, repo's OpenSpec, initiative overview
-**Writes:** Source code in the target repo, branch creation
+**Reads:** repo's CLAUDE.md, repo's .claude/rules/, repo's OpenSpec, impact-matrix.md, initiative overview
+**Writes:** OpenSpec change spec (if repo uses OpenSpec), source code, branch creation
 
 **Key behaviors:**
+- **Reads the repo's CLAUDE.md FIRST** — the repo's rules govern implementation
+- If the repo uses OpenSpec: creates change spec → implements → archives
+- If not: implements directly from the initiative overview
 - Works on ONE repo at a time
-- Follows repo's existing patterns
-- Aligns with OpenSpec if present
-- Creates focused commits
+- Follows the repo's conventions (commit format, code style, test commands)
 - Reports blockers instead of working around them
 
 ---
